@@ -5,17 +5,22 @@ defmodule ExtEnum do
   end
 end
 
-defmodule ExtString do
+defmodule Main do
   def plural(str) do
     if String.ends_with?(str, "s"), do: str, else: "#{str}s"
   end
+
+  def main do
+    {:ok, files} = File.ls('.')
+
+    files
+    |> Enum.filter(&(!String.starts_with?(&1, ".")))
+    |> Enum.sort()
+    |> ExtEnum.middle()
+    |> plural()
+    |> String.upcase()
+    |> IO.puts()
+  end
 end
 
-{:ok, files} = File.ls('.')
-
-files
-|> Enum.filter(&(!String.starts_with?(&1, ".")))
-|> Enum.sort()
-|> ExtEnum.middle()
-|> String.upcase()
-|> IO.puts()
+Main.main()
