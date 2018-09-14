@@ -6,8 +6,8 @@ defmodule ExtEnum do
 end
 
 defmodule Main do
-  def plural(str) do
-    if String.ends_with?(str, "s"), do: str, else: "#{str}s"
+  def plural(str, symbol) do
+    if String.ends_with?(str, "s"), do: str, else: "#{str}#{symbol}"
   end
 
   def main do
@@ -17,7 +17,7 @@ defmodule Main do
     |> Enum.filter(&(!String.starts_with?(&1, ".")))
     |> Enum.sort()
     |> ExtEnum.middle()
-    |> plural()
+    |> plural("s")
     |> String.upcase()
     |> IO.puts()
   end
